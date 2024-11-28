@@ -374,7 +374,7 @@ impl PartitionHandle {
     pub fn range<'a, K: AsRef<[u8]> + 'a, R: RangeBounds<K> + 'a>(
         &'a self,
         range: R,
-    ) -> impl DoubleEndedIterator<Item = crate::Result<KvPair>> + 'static {
+    ) -> impl DoubleEndedIterator<Item = crate::Result<KvPair>> + Send + 'static {
         self.tree.range(range).map(|item| item.map_err(Into::into))
     }
 
